@@ -13,7 +13,7 @@ Descrição do padrão:
         (\b[A-G][#b]?[mM\+]?[°º]?(\(?[0-9]{1,2}[mM\+]?\)?){0,3}([/\\]([A-G][#b]?)|[0-9]{1,2}[mM\+]?[°º]?)?) Grupo contendo a real ER pra acordes, sendo
             \b[A-G][#b]?[mM\+]?[°º]?(\(?[0-9]{1,2}[mM\+]?\)?){0,3} é o acorde com baixo na tônica (isto é, sem indicação de inversão de baixo), sendo
                 \b Separador de palavras, incluindo começo e fim de linha
-                [A-G] Todas as letras que são nomes de acordes em maiúsculas
+                [A-G] 1 de todas as letras que são nomes de acordes em maiúscula
                 [#b]? Opcional # ou b
                 [mM\+]? Opcional sinal m, M ou +
                 [°º]? Opcional sinal ° ou previsão de uso incorreto de º
@@ -24,7 +24,7 @@ Descrição do padrão:
                     \)? Fecha parêntesis opcional
             ([/\\]([A-G][#b]?)|[0-9]{1,2}[mM\+]?[°º]?)? Grupo opcional com o baixo, sendo
                 [/\\] Símbolo "/" ou previsão de uso incorreto de "\"
-                ([A-G][#b]?)|[0-9]{1,2} Grupo com letras que são nomes de baixos em maiúsculas e opcionalmente seguida de # ou b OU número limitado a 2 algarismos
+                ([A-G][#b]?)|[0-9]{1,2} Grupo com 1 das letras que são nomes de baixos em maiúscula e opcionalmente seguida de # ou b OU número limitado a 2 algarismos
                 [mM\+]? Opcional sinal m, M ou +
                 [°º]? Opcional sinal ° ou previsão de uso incorreto de º
         \)? Parêntesis opcional

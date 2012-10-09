@@ -1,4 +1,4 @@
-^(?!\s*$)((\w+:(?!\r|\n))?\s*\(?(\b[A-G][#b]?[mM\+]?[°º]?(\(?[0-9]{1,2}[mM\+]?\)?){0,3}([/\\]([A-G][#b]?)|[0-9]{1,2}[mM\+]?[°º]?)?)\)?\s*\-*(\[\w+\])?\s*(\([\w\d]+\))?\s*)+$
+^(((\w|[À-ü])+\s*:)?(?!\s*$)\s*\(?(\b[A-G][#b]?[mM\+]?[°º]?(\(?[0-9]{1,2}[mM\+]?\)?){0,3}([/\\]([A-G][#b]?)|[0-9]{1,2}[mM\+]?[°º]?)?)\)?\s*\-*((\[|\()(\w|[À-ü])+(\]|\)))?\s*)+$
 
 ER pra identificar linhas de acordes em cifras
 
@@ -7,7 +7,10 @@ Descrição do padrão:
 ^ Começo de linha
     (?!\s*$) Rejeite linhas sem conteúdo ou só com espaços/tabs e fim de linha
     ( Início de Grupo
-        (\w+:)? Opcional sequência de 1 ou mais letras seguida de ":", como INTRO:, Introdução:, BRIDGE: etc
+        ( Início de Grupo opcional contendo
+            (\w|[À-ü])+\s*:\s*(?!\r|\n) 1 ou mais letras/dígitos seguido de espaços opcionais, ":" e espaços opcionais, como INTRO:, Introdução :, BRIDGE: etc
+            (?!\r|\n)) Rejeite se houver quebra de linha entre o texto anterior e os acordes
+        )? Fim de Grupo opcional
         \s* Nenhum ou vários espaços
         \(? Parêntesis opcional
         (\b[A-G][#b]?[mM\+]?[°º]?(\(?[0-9]{1,2}[mM\+]?\)?){0,3}([/\\]([A-G][#b]?)|[0-9]{1,2}[mM\+]?[°º]?)?) Grupo contendo a real ER pra acordes, sendo
@@ -30,10 +33,13 @@ Descrição do padrão:
         \)? Parêntesis opcional
         \s* Nenhum ou vários espaços
         \-* Nenhum ou vários hífens
-        (\[\w+\])? Grupo opcional com a sequência "[", 1 ou várias letras e "]"
-        \s* Nenhum ou vários espaços
-        (\([\w\d]+\))? Grupo opcional com a sequência "(", 1 ou várias letras/números e ")"
+        ((\[|\()(\w|[À-ü])+(\]|\)))? Grupo opcional com a sequência "[" ou "(", 1 ou várias letras/dígitos e "]" ou ")"
         \s* Nenhum ou vários espaços
     ) Fim de Grupo
     + O acima deve ocorrer 1 ou várias vezes
 $ Fim de Linha
+
+TODO:
+
+Trocar \w por (\w|[À-ü]) pra aceitar textos acentuados
+Evitar seleção de múltiplas linhas

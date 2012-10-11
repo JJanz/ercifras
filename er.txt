@@ -1,4 +1,4 @@
-^(.*:)?([ \t\-]*\(?[A-G][#b]?[mM\+]?[°º]?(\(?[0-9]{1,2}[mM\+]?\)?){0,3}\)?(\(?[/\\](([A-G][#b]?[°º]?)|[0-9]{1,2})\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$
+^(.*[:\)])?([ \t\-(]*[A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?(\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?){0,3}(\(?[/\\](([A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?)|([#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?))\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$
 
 ER pra identificar linhas de acordes em cifras
 
@@ -6,28 +6,48 @@ ER pra identificar linhas de acordes em cifras
 
 Descrição do padrão:
 
-^                                                       // Começo de linha/string
-    (.*:)?                                              // Grupo opcional pra casos como INTRO:, Introdução :, BRIDGE: etc. Qualquer coisa seguida de ":".
-    (                                                   // Início de Grupo
-        [ \t\-]*                                        // Opcionais espaços, tabs ou hífens repetidos
-        \(?                                             // Parêntesis opcional
-        [A-G]                                           // OBRIGATÓRIO: 1 de todas as letras que são nomes de acordes em maiúscula
-        [#b]?                                           // Opcional # ou b
-        [mM\+]?                                         // Opcional sinal m, M ou +
-        [°º]?                                           // Opcional sinal ° ou previsão de uso incorreto de º
-        (\(?[0-9]{1,2}[mM\+]?\)?){0,3}                  // 0 ou 3 números de 1 a 2 algarismos opcionalmente entre parêntesis
-        \)?                                             // Parêntesis opcional
-        (                                               // Início de Grupo opcional, do baixo
-            \(?                                         // Parêntesis opcional
-            [/\\]                                       // Símbolo "/" ou previsão de uso incorreto de "\"
-            (                                           // Início de Grupo de alternativas pro baixo: Letra ou número
-                ([A-G][#b]?[°º]?)                       // Grupo de letras e símbolos pra nota do baixo
-                |                                       // OU
-                [0-9]{1,2}                              // Número de 1 a 2 algarismos pra nota do baixo
-            )                                           // Fim de Grupo de alternativas pro baixo: Letra ou número
-            \)?                                         // Parêntesis opcional
-        )?                                              // Fim de Grupo opcional, do baixo
-        ([ \t\-]*[\[\(].*[\)\]])?                       // Grupo opcional pra casos como (x2) ou ( 3x ) ou [stop] etc. Espaços opcionais e qualquer coisa entre parêtesis ou colchetes.
-        [ \t\-]*                                        // Opcionais espaços, tabs ou hífens repetidos
-    )+                                                  // O acima, exceto o primeiro grupo da string, isto é, os acordes e anotações entre () ou [], ocorre 1 ou repetidas vezes.
-$                                                       // Fim de linha/string
+^                                               // Começo de linha/string
+    (.*[:\)])?                                  // Grupo opcional pra casos como INTRO:, Introdução :, BRIDGE:, (interlúdio) etc. Qualquer coisa seguida de ":" ou ")".
+    (                                           // Início de Grupo com acordes e anotações entre () ou [], que ocorre 1 ou repetidas vezes.
+        [ \t\-\(]*                              // Opcionais espaços, tabs, hífens ou abre-parêntesis repetidos
+        [A-G]                                   // OBRIGATÓRIO: 1 de todas as letras que são nomes de acordes em maiúscula, nota raíz
+        [#b]?                                   // Opcional # ou b
+        [m\-M]?                                 // Opcional m, - ou M
+        ([°º\+]|dim|aum|aug)?                   // Opcional °, º, dim, aum ou aug
+        (                                       // Início de Grupo opcional pra 0 a 3 números
+            \(?                                 // Parêntesis opcional
+            [#b]?                               // Opcional # ou b
+            (maj)?                              // Opcional maj
+            [0-9]{1,2}                          // Número de 1 a 2 algarismos
+            [m\-M]?                             // Opcional m, - ou M
+            ([°º\+]|dim|aum|aug)?               // Opcional °, º, dim, aum ou aug
+            \)?                                 // Parêntesis opcional
+        ){0,3}                                  // Fim de Grupo opcional pra 0 a 3 números
+        (                                       // Início de Grupo opcional pro baixo
+            \(?                                 // Parêntesis opcional
+            [/\\]                               // "/" ou previsão de uso incorreto de "\"
+            (                                   // Início do Grupo de alternativa pro baixo, sendo letra ou número
+                (                               // Início do Grupo de alternativa pro baixo sendo letra
+                    [A-G]                       // OBRIGATÓRIO: 1 de todas as letras que são nomes de baixos em maiúscula
+                    [#b]?                       // Opcional # ou b
+                    [m\-M]?                     // Opcional m, - ou M
+                    ([°º\+]|dim|aum|aug)?       // Opcional °, º, dim, aum ou aug
+                )                               // Fim do Grupo de alternativa pro baixo sendo letra
+            |                                   // OU
+                (                               // Início do Grupo de alternativa pro baixo sendo número
+                    [#b]?                       // Opcional # ou b
+                    (maj)?                      // Opcional maj
+                    [0-9]{1,2}                  // Número de 1 a 2 algarismos
+                    [m\-M]?                     // Opcional m, - ou M
+                    ([°º\+]|dim|aum|aug)?       // Opcional °, º, dim, aum ou aug
+                )                               // Fim do Grupo de alternativa pro baixo sendo número
+            )                                   // Fim do Grupo de alternativa pro baixo, sendo letra ou número
+            \)?                                 // Parêntesis opcional
+        )?                                      // Fim de Grupo opcional pro baixo
+        (                                       // Início de Grupo opcional pra casos como (x2) ou ( 3x ) ou [stop] etc.
+            [ \t\-]*                            // Opcionais espaços, tabs ou hífens repetidos
+            [\[\(].*[\)\]]                      // Qualquer coisa entre parêntesis ou colchetes
+        )?                                      // Fim de Grupo opcional pra casos como (x2) ou ( 3x ) ou [stop] etc.
+        [ \t\-\)]*                              // Opcionais espaços, tabs, hífens ou fecha-parêntesis repetidos
+    )+                                          // Fim de Grupo com acordes e anotações entre () ou [], que ocorre 1 ou repetidas vezes.
+$                                               // Fim de linha/string

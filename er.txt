@@ -23,6 +23,16 @@ Descrição do padrão:
             ([°º\+]|dim|aum|aug)?               // Opcional °, º, dim, aum ou aug
             \)?                                 // Parêntesis opcional
         ){0,3}                                  // Fim de Grupo opcional pra 0 a 3 números
+        (                                       // Início de Grupo opcional pra sus
+            sus                                 // sus
+            \(?                                 // Parêntesis opcional
+            [#b]?                               // Opcional # ou b
+            (maj)?                              // Opcional maj
+            [0-9]{1,2}                          // Número de 1 a 2 algarismos
+            [m\-M]?                             // Opcional m, - ou M
+            ([°º\+]|dim|aum|aug)?               // Opcional °, º, dim, aum ou aug
+            \)?                                 // Parêntesis opcional
+        )?                                      // Fim de Grupo opcional pra sus
         (                                       // Início de Grupo opcional pro baixo
             \(?                                 // Parêntesis opcional
             [/\\]                               // "/" ou previsão de uso incorreto de "\"

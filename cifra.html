@@ -3,9 +3,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <style>
 pre#cifra {
-    font-family: 'BitstreamVeraSansMonoRoman',monospace;
     font-size: 12px;
-    white-space: pre;
     background-color: #EEE;
 }
 
@@ -20,10 +18,6 @@ pre#cifra mark {
     background-color: #FFF;
     display: inline-block;
     width: 100%;
-}
-
-pre#cifra.letra mark {
-    display: none;
 }
 
 pre#cifra.letra span {
@@ -41,7 +35,7 @@ div a {
 }
 </style>
 </head>
-<pre id="cifra">
+<pre id="cifra" class="letra">
 
 ALELUIA de Handel
 
@@ -235,6 +229,6 @@ ENQUANTO EU VIVER TE ADORAREI SENHOR
 var er = /^(.*[:\)])?([ \t\-(]*[A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?(\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?){0,3}(sus\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?)?(\(?[/\\](([A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?)|([#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?))\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er, "<mark>$&</mark>");
 //er2 = /(^<span>)\w[ \t–-]+\w/gm;
-er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|[\r\n](?![^<mark]))/gm;
+er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|(<mark.*<\/mark>[\r\n]))/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er2, "<span>$&</span>");
 </script>

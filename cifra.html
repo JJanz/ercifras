@@ -235,6 +235,6 @@ ENQUANTO EU VIVER TE ADORAREI SENHOR
 var er = /^(.*[:\)])?([ \t\-(]*[A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?(\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?){0,3}(sus\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?)?(\(?[/\\](([A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?)|([#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?))\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er, "<mark>$&</mark>");
 //er2 = /(^<span>)\w[ \t–-]+\w/gm;
-er2 = /(?!^\w)[ \t]*[–-]+[ \t]*(?!^\w)/gm;
+er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|[\r\n](?![^<mark]))/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er2, "<span>$&</span>");
 </script>

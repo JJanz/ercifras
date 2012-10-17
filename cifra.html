@@ -2,6 +2,10 @@
 <meta charset="utf-8" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <style>
+body, pre#cifra.letra {
+    font-family: sans;
+}
+
 pre#cifra {
     font-size: 12px;
     background-color: #EEE;
@@ -32,6 +36,10 @@ div {
 div a {
     background-color: #FFF;
     border: 2px dotted #CCC;
+}
+
+pre#cifra.letra+div a+a {
+    display: none;
 }
 </style>
 </head>
@@ -223,12 +231,127 @@ MEU AMIGO       MEU SALVADOR
                Cm7            Bb9     F9
 ENQUANTO EU VIVER TE ADORAREI SENHOR
 
-</pre>
-<div><a href="#" onclick="javascript:$('#cifra').toggleClass('letra'); return false;">Alternar Letra/Cifra</a></div>
+
+
+
+
+
+
+WHAT IF I STUMBLE
+
+
+Tom: F
+		
+
+Intro:
+Dm-C-G
+
+Dm                                C-G
+What if I stumble? What if I fall?
+
+Dm
+Is this one for the people?
+    C              G
+Is this one for the Lord?
+      Dm                    C            G
+Or do I simply serenade for things I must afford?
+        Dm                      C          G
+You can jumble them together, my conflict still remains
+       Dm                          C              G
+For holiness is calling, in the midst of courting fame.
+
+{Bridge}
+Bb              F             C
+Cause I see the trust in their eyes
+(Though the sky is falling)
+Bb              F             C
+They need your love in their lives
+(Compromise is calling)
+
+{Chorus}
+C               G        E
+What if I stumble? What if I fall?
+Am                                   F
+What if I lose my step and I make fools of us all?
+C                                 G                     E
+Will the love continue when my walk becomes a crawl?
+Am              F             Dm
+What if I stumble, and what if I fall?
+
+Dm
+What if I stumble?  What if I fall?
+C                  G
+You never turn in the heat of it all.
+Dm                              C-G
+What if I stumble?  What if I fall?
+
+Dm                           C               G
+Father please forgive me for I can not compose
+Dm                              C                  G
+The fear that lives within me, or the rate at which it grows.
+Dm                                C                     G
+If struggle has a purpose on the narrow road you've carved
+Dm                              C                 G
+Why do I dread my trespasses will leave a deadly scar?
+
+Bb               F             C
+Do they see the fear in my eyes?
+(Are they so revealing?)
+Bb              F             C
+This time I can not disguise
+(All the doubt I'm feeling)
+
+{Chorus}
+
+C-G-E-Am-F (x4)
+
+Dm                                                 C                G
+Everyone's got to crawl when you know that your up against the wall
+(It's about to fall)
+Dm                                                 C                G
+Everyone's got to crawl when you know that . . .
+Dm                                                 C                G
+Everyone's got to crawl when you know that your up against the wall
+(It's about to fall)
+Dm                                                 C                G
+Everyone's got to crawl when you know that . . .
+
+Bb              F       C
+I hear you whispering my name,  you say
+Bb              F             C
+My love for you will never change, never change
+
+
+{Chorus} x 2
+
+
+Dm
+What if I stumble?  What if I fall?
+C                  G
+You never turn in the heat of it all.
+Dm
+What if I stumble?  What if I fall?
+C                  G
+You are my comfort, and my God!
+
+Dm
+Is this one for the people?
+C               G
+Is this one for the Lord?
+
+
+Dm-C-G</pre>
+<div>
+    <a href="#" onclick="javascript:$('#cifra').toggleClass('letra'); return false;">Alternar Letra/Cifra</a>
+    <a href="#" onclick="void(0); return false;">+1 tom</a>
+    <a href="#" onclick="void(0); return false;">+&frac12; tom</a>
+    <a href="#" onclick="void(0); return false;">-&frac12; tom</a>
+    <a href="#" onclick="void(0); return false;">-1 tom</a>
+</div>
 <script>
 var er = /^(.*[:\)])?([ \t\-(]*[A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?(\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?){0,3}(sus\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?)?(\(?[/\\](([A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?)|([#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?))\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er, "<mark>$&</mark>");
 //er2 = /(^<span>)\w[ \t–-]+\w/gm;
-er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|(<mark.*<\/mark>[\r\n]))/gm;
+er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|(<mark.*<\/mark>[\r\n]?))/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er2, "<span>$&</span>");
 </script>

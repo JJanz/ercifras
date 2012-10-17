@@ -30,12 +30,18 @@ pre#cifra.letra span {
 
 div {
     top: 0;
+    right: 0;
     position: fixed;
 }
 
 div a {
     background-color: #FFF;
     border: 2px dotted #CCC;
+    float: right;
+}
+
+pre#cifra+div a+a {
+    float: left;
 }
 
 pre#cifra.letra+div a+a {

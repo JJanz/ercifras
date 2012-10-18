@@ -435,10 +435,10 @@ Dm-C-G</pre>
 </div>
 <script>
 var er = /^(.*[:\)])?([ \t\-(]*[A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?(\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?){0,3}(sus\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?)?(\(?[/\\](([A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?)|([#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?))\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$/gm;
-$('#cifra').html($('#cifra').html().replace(er, "<mark>$&</mark>");
+$('#cifra').html($('#cifra').html().replace(er, "<mark>$&</mark>"));
 
 var er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|(<mark.*<\/mark>[\r\n]?))/gm;
-$('#cifra').html($('#cifra').html().replace(er2, "<span>$&</span>");
+$('#cifra').html($('#cifra').html().replace(er2, "<span>$&</span>"));
 
 
 

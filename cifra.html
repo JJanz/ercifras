@@ -8,7 +8,7 @@ body, pre#cifra.letra {
 
 pre#cifra {
     font-size: 12px;
-    background-color: #EEE;
+    background-color: #F6F6F6;
 }
 
 pre#cifra.letra {
@@ -101,6 +101,10 @@ G    G/B      C7(9)   G    G/B        C7(9)  G  [stop]
 A     –     le – luia,   A     –     le  –  lu  –  ia
 G      C	        G
 A – LE… LU…    IAAAA!!
+
+
+
+
 
 
 
@@ -212,6 +216,10 @@ There ain't no disguising the truth (Jesus is the way)
 
 
 
+
+
+
+
 JESUS, ÉS MEU AMADO
 
 
@@ -236,6 +244,77 @@ HAJA O QUE HOUVER JAMAIS TE DEIXAREI
 MEU AMIGO       MEU SALVADOR                                
                Cm7            Bb9     F9
 ENQUANTO EU VIVER TE ADORAREI SENHOR
+
+
+
+
+
+
+
+
+
+TU ÉS SANTO
+
+Tom: G
+		
+
+G
+Tu és Santo               ( Tu és santo)
+    C9
+Poderoso                  ( Poderoso)
+     Am
+Tu és digno               ( Tu és digno)
+            D
+De adoração	          ( De adoração)
+     G
+Eu te sigo                ( Eu te sigo)
+      C9
+Eu te ouço                ( Eu te ouço )
+     Am
+Para Sempre               ( Para sempre)
+  D    G
+Te amarei                 ( Te amarei)
+
+      C9
+e eu canto                ( Ele é  o meu Senhor)
+   D
+e louvo                   ( Ele é o Rei dos Reis)
+   Em7
+Ao rei que                ( Ele é o Pai de amor)
+  Bm7
+É digno                   ( Poderoso Deus)
+
+    C9
+e Eu amo                  ( É o 'Emanuel')
+   D
+O adoro                   ( É o Grande Eu Sou)
+   Em7
+Diante dele               ( Ele é o cordeiro)
+      Bm7
+Me prostro                ( Que me salvou)
+
+     C9
+e eu canto                ( Ele vivo está)
+  D
+e louvo                   ( Ele ressurgiu)
+   Em7
+Ao rei que                ( Sempre reinará)
+  Bm7
+É digno                   ( Ele sempre existiu)
+
+    C9
+e eu amo                  ( Ele é o Alfa e o Ômega)
+   D
+O adoro                   ( O Início e o Fim)
+    Em7
+Diante dEle               ( Salvador e Messias)
+     A
+Me prostro                ( amigo pra mim)
+
+      C9
+Príncipe da paz, só por Ele eu viverei
+
+
 
 
 
@@ -349,15 +428,38 @@ Is this one for the Lord?
 Dm-C-G</pre>
 <div>
     <a href="#" onclick="javascript:$('#cifra').toggleClass('letra'); return false;">Alternar Letra/Cifra</a>
-    <a href="#" onclick="void(0); return false;">+1 tom</a>
-    <a href="#" onclick="void(0); return false;">+&frac12; tom</a>
-    <a href="#" onclick="void(0); return false;">-&frac12; tom</a>
-    <a href="#" onclick="void(0); return false;">-1 tom</a>
+    <a href="#" onclick="javascript:transporCifra('cifra', 2); return false;">+1 tom</a>
+    <a href="#" onclick="javascript:transporCifra('cifra', 1); return false;">+&frac12; tom</a>
+    <a href="#" onclick="javascript:transporCifra('cifra', -1); return false;">-&frac12; tom</a>
+    <a href="#" onclick="javascript:transporCifra('cifra', -2); return false;">-1 tom</a>
 </div>
 <script>
 var er = /^(.*[:\)])?([ \t\-(]*[A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?(\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?){0,3}(sus\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?)?(\(?[/\\](([A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?)|([#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?))\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er, "<mark>$&</mark>");
 //er2 = /(^<span>)\w[ \t–-]+\w/gm;
-er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|(<mark.*<\/mark>[\r\n]?))/gm;
+var er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|(<mark.*<\/mark>[\r\n]?))/gm;
 document.getElementById('cifra').innerHTML = document.getElementById('cifra').innerHTML.replace(er2, "<span>$&</span>");
+
+
+
+
+var er3 = /[A-G][#b]?/gm;
+
+var acordes = [];
+$('mark').each( function(){
+    acordes = acordes.concat(this.textContent.match(er3));
+});
+
+var sustenidos = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
+var bemois = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab'];
+
+var notas = ( acordes.join('').indexOf('b') >= 0 ? bemois : sustenidos );
+
+function transporCifra(cifraId, delta){
+    $('#'+cifraId+' mark').each(function(){
+        $(this).html($(this).html().replace(er3, function(match){
+            return notas[(12+((notas.indexOf(match)+delta)%12))%12];
+        } ));
+    });
+}
 </script>

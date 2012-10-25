@@ -427,17 +427,17 @@ Is this one for the Lord?
 
 Dm-C-G</pre>
 <div>
-    <a href="#" onclick="javascript:$('#cifra').toggleClass('letra'); return false;">Alternar Letra/Cifra</a>
+    <a href="#" onclick="javascript:$('#cifra span').toggle(); return false;">Alternar Letra/Cifra</a>
     <a href="#" onclick="javascript:transporCifra('cifra', 2); return false;">+1 tom</a>
     <a href="#" onclick="javascript:transporCifra('cifra', 1); return false;">+&frac12; tom</a>
     <a href="#" onclick="javascript:transporCifra('cifra', -1); return false;">-&frac12; tom</a>
     <a href="#" onclick="javascript:transporCifra('cifra', -2); return false;">-1 tom</a>
 </div>
 <script>
-var er = /^(.*[:\)])?([ \t\-(]*[A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?(\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?){0,3}(sus\(?[#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?\)?)?(\(?[/\\](([A-G][#b]?[m\-M]?([°º\+]|dim|aum|aug)?)|([#b]?(maj)?[0-9]{1,2}[m\-M]?([°º\+]|dim|aum|aug)?))\)?)?([ \t\-]*[\[\(].*[\)\]])?[ \t\-]*)+$/gm;
-$('#cifra').html($('#cifra').html().replace(er, "<mark>$&</mark>"));
+var er = /^(?:.*[)\]:])?(?:[ \t\-()]*(([A-G](?:[#bm\-M°º+]|dim|aum|aug)*(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*){0,3})(\(?[/\\](?:[A-G](?:[#bm\-M°º+]|dim|aum|aug)*)|(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*))?)[ \t\-()]*(?:[[(].*[)\]:])*[ \t\-()]*)+([\r\n]|$)/gm;
+$('#cifra').html($('#cifra').html().replace(er, "<span><mark>$&</mark>$4</span>"));
 
-var er2 = /(((?!^\w)[ \t]*[–-]+[ \t]*(?!^\w))|(<mark.*<\/mark>[\r\n]?))/gm;
+var er2 = /(?!^\w)[ \t]*[–-]+[ \t]*(?!^\w)/gm;
 $('#cifra').html($('#cifra').html().replace(er2, "<span>$&</span>"));
 
 
@@ -447,7 +447,7 @@ var er3 = /[A-G][#b]?(?!([A-LN-Za-ln-z:]))/gm;
 
 var acordes = [];
 $('mark').each( function(){
-    acordes = acordes.concat($(this).text().match(er3));
+    acordes = acordes.concat($this.text().match(er3));
 });
 
 var sustenidos = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];

@@ -4,9 +4,15 @@
 
   var methods = {
     init : function( options ) {
-        var REchordsLine = /^(?:.*[)\]:])?(?:[ \t\-()]*(([A-G](?:[#bm\-M°º+]|dim|aum|aug)*(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*){0,3})(\(?[/\\](?:[A-G](?:[#bm\-M°º+]|dim|aum|aug)*)|(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*))?)[ \t\-()]*(?:[[(].*[)\]:])*[ \t\-()]*)+([\r\n]|$)/g;
+        var REchordsLine = /^((?:.*[)\]:])?[ \t\-(]*)(?:(?:([A-G](?:[#bm\-M°º+]|dim|aum|aug)*(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*){0,3})(\(?[/\\](?:[A-G](?:[#bm\-M°º+]|dim|aum|aug)*)|(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*)?)([ \t\-)]*(?:[[(].+[)\]:])*[ \t\-)]*)*)+([\r\n]|$)/g;
         //TODO: MARK.chordsLine for lines and A for each chord
-        this.html(this.html().replace(REchordsLine, "<mark class=\"chordsLine\">$&</mark>"));
+        // maybe ^(?=currentLineRegex)([\r\n]|$) -- ?=lookforward/lookahead -- let's see what this does
+        // maybe string split with regex plus join('</a><a>') -- or see http://www.w3schools.com/jsref/jsref_regexp_lastindex.asp
+        this.html(
+            this.html().replace(REchordsLine, function(){
+                return '<mark class="chordsLine">'+match.replace(p1, '<a>' + p1 + '</a>')+'</mark>';
+            })
+        );
         var REchordsLyricsWordSepar = /(?!^\w)[ \t]*[–-]+[ \t]*(?!^\w)/gm;
         this.html(this.html().replace(REchordsLyricsWordSepar, "<span class=\"chordsLyricsWordSepar\">$&</span>"));
         //TODO: create buttons/links to transpose (eg. this.chords('transpose', -1)) and optionally toggle Chords (eg. this.chords('toggleChords'))
@@ -22,7 +28,7 @@
         return this.children('mark.chordsLine').each(function(){
             return this.html(
                 this.html().replace(REchordsNames, 
-                                    function(match){
+                                    function(){
                                         return notes[(12+((notes.indexOf(match)+delta)%12))%12];
                                     })
             );

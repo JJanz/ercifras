@@ -434,8 +434,33 @@ Dm-C-G</pre>
     <a href="#" onclick="javascript:transporCifra('cifra', -2); return false;">-1 tom</a>
 </div>
 <script>
-var er = /^(?:.*[)\]:])?(?:[ \t\-()]*(([A-G](?:[#bm\-M°º+]|dim|aum|aug)*(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*){0,3})(\(?[/\\](?:[A-G](?:[#bm\-M°º+]|dim|aum|aug)*)|(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*))?)[ \t\-()]*(?:[[(].*[)\]:])*[ \t\-()]*)+([\r\n]|$)/gm;
-$('#cifra').html($('#cifra').html().replace(er, "<span><mark>$&</mark>$4</span>"));
+erAcorde = '([A-G](?:[#bm\-M°º+]|dim|aum|aug)*(?:(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*){0,3})'
+var er = RegExp('^((?:.*[)\]:])?[ \t\-(]*)(?:(?:'+erAcorde+'(\(?[/\\](?:[A-G](?:[#bm\-M°º+]|dim|aum|aug)*)|(?:[(#b]|maj)*[0-9]{1,2}(?:[m\-M°º+)]|dim|aum|aug)*)?)([ \t\-)]*(?:[[(].+[)\]:])*[ \t\-)]*)*)+([\r\n]|$)','g','m');
+//$('#cifra').html($('#cifra').html().replace(er, tagsAcordes));
+//$('#cifra').html($('#cifra').html().replace(er, "<span>$1<mark><span class=\"chord\">$3</span><span class=\"bass\">$4</span></mark>$5$6</span>"));
+//$('#cifra').html($('#cifra').html().replace(er, "<span><mark>$&</mark>$4</span>"));
+
+function tagsAcordes(cifra){
+    var text = cifra.html();
+    var mymatch = er.exec(text);
+    var textz = text;
+    alert(mymatch +' '+ mymatch[3]);
+    while (mymatch != null){
+        var text1 = text.substring(0,mymatch.index);
+        var text2 = text.substring(er.lastIndex,text.length);
+        textz = text1+'<span><mark>'+(mymatch[1]||'');
+        for (var i=2; i < (mymatch.length-1); i+=3){
+            textz+='<span class="chord">'+mymatch[i]+'</span><span class="bass">'+(mymatch[i+1]||'')+'</span>'+(mymatch[i+2]||'');
+        }
+//        textz+='</mark></span>'+text2;
+        textz+='</mark>'+(mymatch[mymatch.length-1]||'')+'</span>'+text2;
+        text = textz;
+        mymatch = er.exec(text);
+    }
+    cifra.html(textz);
+    //return '<span>'+p1+'<mark><span class="chord">'+p3+'</span><span class="bass">'+p4+'</span></mark>'+p5+p6+'</span>';
+}
+tagsAcordes($('#cifra'));
 
 var er2 = /(?!^\w)[ \t]*[–-]+[ \t]*(?!^\w)/gm;
 $('#cifra').html($('#cifra').html().replace(er2, "<span>$&</span>"));
@@ -447,7 +472,7 @@ var er3 = /[A-G][#b]?(?!([A-LN-Za-ln-z:]))/gm;
 
 var acordes = [];
 $('mark').each( function(){
-    acordes = acordes.concat($this.text().match(er3));
+    acordes = acordes.concat($(this).text().match(er3));
 });
 
 var sustenidos = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
